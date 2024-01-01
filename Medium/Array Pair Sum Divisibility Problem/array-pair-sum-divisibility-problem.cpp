@@ -5,25 +5,19 @@ using namespace std;
 // } Driver Code Ends
 class Solution {
   public:
-     bool canPair(vector<int> nums, int k) {
+    bool canPair(vector<int> v, int k) {
         // Code here.
-        int n=nums.size();
-        if(n&1)return false;
-        unordered_map<int,int> mp;
-        for(int i=0; i<n; i++){
-            int val=nums[i]%k;
-            if(val==0){
-                if(mp.find(0)==mp.end())mp[0]++;
-                else mp[0]--;
-                continue;
-            }
-            int check=k-val;
-            if(mp.find(check)==mp.end())mp[val]++;
-            else mp[check]--;
+        int sz = v.size();
+        map<int,int>mp;
+        for(int i=0;i<sz;i++){
+            mp[v[i]%k]++;
         }
-        for(auto it:mp){
-           // cout<<it.second<<" "<<endl;
-            if(it.second>0)return false;
+        for(int i=0;i<k;i++){
+           if(i==0){
+               continue;
+           }else if(mp[i]!=mp[k-i]){
+               return false;
+           }
         }
         return true;
     }
