@@ -8,47 +8,27 @@ using namespace std;
 
 class Solution {
   public:
-    int smallestSubstring(string S) {
+    int smallestSubstring(string s) {
         // Code here
-         // Code here
-        int n=S.size();
-        int zero=0,one=0,two=0;
-        for(int i=0;i<n;i++){
-            if(S[i]=='0'){
-                zero++;
-            }
-            else if(S[i]=='1'){
-                one++;
-            }
-            else{
-                two++;
+        int length = s.size();
+        int ans = -1;
+        int start = 0;
+        int z = 0, o = 0, t = 0;
+        for(int end = 0;end<length;end++){
+            if(s[end]=='0')z++;
+            if(s[end]=='1')o++;
+            if(s[end]=='2')t++;
+            
+            while(z and o and t){
+                ans = (ans == -1) ? (end-start +1): min(ans, end-start +1);
+                if(s[start]=='0')z--;
+                if(s[start]=='1')o--;
+                if(s[start]=='2')t--;
+                
+                start++;
             }
         }
-        if(zero==0 || one==0 || two==0 ){
-            return -1;
-        }
-        int MIN=INT_MAX;
-        int i=0,j=0,count=0;
-        unordered_map<char,int>mp;
-        while(i<n && j<n){
-            mp[S[j]]++;
-            if(mp['0']>=1 && mp['1']>=1 && mp['2']>=1){
-                MIN=min(MIN,(j-i+1));
-                while(i<j-2){
-                    mp[S[i]]--;
-                    i++;
-                    if(mp['0']>=1 && mp['1']>=1 && mp['2']>=1){
-                    MIN=min(MIN,(j-i+1));
-                }
-            }
-            }
-            if(MIN==3){
-                break;
-            }
-            j++;
-        }
-        return MIN;
-        
+        return ans;
     }
 };
 
