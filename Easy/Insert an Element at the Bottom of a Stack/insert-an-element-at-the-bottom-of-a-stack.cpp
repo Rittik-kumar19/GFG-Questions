@@ -10,21 +10,23 @@ using namespace std;
 
 class Solution{
 public:
-    void sol(int i,stack<int>&st,int n,int x){
-    if(i==n){
-        st.push(x);
-        return;
-    }
-    int a=st.top();
-    st.pop();
-    sol(i+1,st,n,x);
-    st.push(a);
-}
     stack<int> insertAtBottom(stack<int> st,int x){
-      
-        int n=st.size();
-        sol(0,st,n,x);
-        return st;
+        vector<int>ans;
+        while(!st.empty()){
+            int num = st.top();
+            st.pop();
+            ans.push_back(num);
+        }
+        ans.push_back(x);
+        // for(int i=0;i<ans.size();i++){
+        //     cout<<ans[i]<<" ";
+        // }
+        stack<int>stt;
+        for(int i=ans.size()-1;i>=0;i--){
+            stt.push(ans[i]);
+            // cout<<ans[i]<<" ";
+        }
+        return stt;
     }
 };
 
